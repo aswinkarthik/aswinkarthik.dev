@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Aswin Karthik&#39;s Personal site</title>
-    <link>https://aswinkarthik.github.io/</link>
+    <link>https://aswinkarthik.dev/</link>
     <description>Recent content on Aswin Karthik&#39;s Personal site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 18 Aug 2019 10:34:16 +0530</lastBuildDate>
     
-	<atom:link href="https://aswinkarthik.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://aswinkarthik.dev/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Aswin Karthik</title>
-      <link>https://aswinkarthik.github.io/about/</link>
+      <link>https://aswinkarthik.dev/about/</link>
       <pubDate>Sun, 18 Aug 2019 10:34:16 +0530</pubDate>
       
-      <guid>https://aswinkarthik.github.io/about/</guid>
+      <guid>https://aswinkarthik.dev/about/</guid>
       <description>I am  A full stack, polyglot developer. Currently working as part of a Platform engineering team that builds tools for product teams/developers to run 100+ microservices. Experienced on building infrastructure/platforms to run a high traffic large scale web application on Kubernetes. Experienced in Infrastructure automation for deploying applications using tools/platforms like Chef on VMs or Kubernetes using containers. Experienced in building backends using Microservices architecture with exposure to technologies like Java with Spring/Dropwizard, NodeJS, Golang, Ruby on Rails.</description>
     </item>
     
