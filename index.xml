@@ -6,10 +6,20 @@
     <description>Recent content on Aswin Karthik&#39;s Personal site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 18 Aug 2019 10:34:16 +0530</lastBuildDate>
+    <lastBuildDate>Wed, 28 Aug 2019 17:44:58 +0530</lastBuildDate>
     
 	<atom:link href="https://aswinkarthik.dev/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Setting up this Blog</title>
+      <link>https://aswinkarthik.dev/posts/setting-up/</link>
+      <pubDate>Wed, 28 Aug 2019 17:44:58 +0530</pubDate>
+      
+      <guid>https://aswinkarthik.dev/posts/setting-up/</guid>
+      <description>I wanted to do a small write up on how I set this blog up. This blog uses hugo to generate content. Things to note about Hugo:
+ It is a static site generator. Themes are easily pluggable. Content can be written as markdown files.  Steps 1. Github Repository Create a repository to host all your content. This is where you will be maintaining markdown files. So I created https://github.</description>
+    </item>
     
     <item>
       <title>Aswin Karthik</title>
