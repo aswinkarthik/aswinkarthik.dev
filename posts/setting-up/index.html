@@ -46,7 +46,7 @@
                     </h1>
                     <h2 class="headline">
                     Aug 28, 2019 17:44
-                    · 637 words
+                    · 634 words
                     · 3 minute read
                       <span class="tags">
                       
@@ -117,7 +117,7 @@ $ cd website &amp;&amp; tree
 
 <p><em>Use custom domain</em></p>
 
-<p>Create a custom domain using some provider. E.g domains.google.com. Create the repository in your name. In my case, I created the repo <code>aswinkarthik.dev</code>. Go to the <code>Settings</code> page of your repository. In the <code>GitHub Pages</code> section, specify your custom domain.</p>
+<p>Create a custom domain using some provider. E.g domains.google.com. Create the repository in your name. In my case, I created the repo <code>aswinkarthik.dev</code>. Go to the <code>Settings</code> page of your repository. In the <code>GitHub Pages</code> section, specify your custom domain. Also read <a href="https://help.github.com/en/articles/setting-up-an-apex-domain">this</a> to point your domain to Github servers.</p>
 
 <p>Whatever domain you choose, make sure to update it in <code>./config.toml</code> under <code>baseURL</code>. We are at a point where if we put any HTML content into this repository, it will be served as a website. Let&rsquo;s do that.</p>
 
@@ -173,12 +173,6 @@ $ travis encrypt GITHUB_TOKEN=${THE_TOKEN_YOU_CREATED} -r ${USERNAME}/${YOUR_HUG
 Travis will build and publish the HTML files to Github pages. You could access your URL using the domain you chose.</p>
 
 <h3 id="6-future-workflow">6. Future workflow</h3>
-
-<p>To create posts</p>
-
-<pre><code class="language-bash"># This would create a Draft
-$ hugo new posts/setting-up.md
-</code></pre>
 
 <p>To create posts</p>
 

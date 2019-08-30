@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>How To on Aswin Karthik&#39;s Personal site</title>
-    <link>https://aswinkarthik.dev/tags/how-to/</link>
-    <description>Recent content in How To on Aswin Karthik&#39;s Personal site</description>
+    <title>Cli Hacks on Aswin Karthik&#39;s Personal site</title>
+    <link>https://aswinkarthik.dev/tags/cli-hacks/</link>
+    <description>Recent content in Cli Hacks on Aswin Karthik&#39;s Personal site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 30 Aug 2019 12:45:00 +0530</lastBuildDate>
     
-	<atom:link href="https://aswinkarthik.dev/tags/how-to/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://aswinkarthik.dev/tags/cli-hacks/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -20,16 +20,6 @@
       <description>I do not use any autojump tools to navigate across my project directories. A simple bash function does the job for me. Customization is the main reason.
 The tools I use to create the functions can be replaced with GNU tools. I use them because they are fast and have some additional features like respect .gitignore file. Let&amp;rsquo;s create the function.
 Steps 1. Find directories or files to navigate to I need a way to list all the directories I am interested in.</description>
-    </item>
-    
-    <item>
-      <title>Setting up this Blog</title>
-      <link>https://aswinkarthik.dev/posts/setting-up/</link>
-      <pubDate>Wed, 28 Aug 2019 17:44:58 +0530</pubDate>
-      
-      <guid>https://aswinkarthik.dev/posts/setting-up/</guid>
-      <description>I wanted to do a small write up on how I set this blog up. This blog uses hugo to generate content. Things to note about Hugo:
- It is a static site generator. Themes are easily pluggable. Content can be written as markdown files.  Steps 1. Github Repository Create a repository to host all your content. This is where you will be maintaining markdown files. So I created https://github.</description>
     </item>
     
   </channel>

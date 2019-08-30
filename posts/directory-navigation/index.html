@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<meta name="author" content="Aswin Karthik">
+		<meta name="description" content="Programmer">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>How I navigate directories? &middot; Aswin Karthik&#39;s Personal site</title>
+		<link rel="shortcut icon" href="https://aswinkarthik.dev/images/favicon.ico">
+		<link rel="stylesheet" href="https://aswinkarthik.dev/css/style.css">
+		<link rel="stylesheet" href="https://aswinkarthik.dev/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://aswinkarthik.dev/css/monosocialiconsfont.css">
+		
+
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://aswinkarthik.dev/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://aswinkarthik.dev/posts'>Archive</a>
+	<a href='https://aswinkarthik.dev/tags'>Tags</a>
+	<a href='https://aswinkarthik.dev/about'>About</a>
+
+	
+
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        How I navigate directories?
+                    </h1>
+                    <h2 class="headline">
+                    Aug 30, 2019 12:45
+                    · 533 words
+                    · 3 minute read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://aswinkarthik.dev/tags/how-to">how-to</a>
+                          
+                              <a href="https://aswinkarthik.dev/tags/interactive">interactive</a>
+                          
+                              <a href="https://aswinkarthik.dev/tags/cli-hacks">cli-hacks</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    
+
+<p>I do not use any <code>autojump</code> tools to navigate across my project directories. A simple <code>bash</code> function does the job for me. Customization is the main reason.</p>
+
+<p>The tools I use to create the functions can be replaced with GNU tools. I use them because they are fast and have some additional features like respect <code>.gitignore</code> file. Let&rsquo;s create the function.</p>
+
+<h2 id="steps">Steps</h2>
+
+<h3 id="1-find-directories-or-files-to-navigate-to">1. Find directories or files to navigate to</h3>
+
+<p>I need a way to list all the directories I am interested in. This could be directories under your project dir (for me, it is <code>${HOME}/projects</code>).</p>
+
+<pre><code class="language-bash">$ fd . -d 5 ${HOME}/project/ -E vendor
+</code></pre>
+
+<p>This lists all directories in my project directory till 5 depth. By default <a href="https://github.com/sharkdp/fd">fd</a> ignores git-ignored files and directories. I am also excluding <code>vendor</code> directory for my golang projects as sometimes they are not git-ignored.</p>
+
+<blockquote>
+<p>Note: Use any finder instead fd. GNU find will work too.</p>
+</blockquote>
+
+<h3 id="2-open-an-interactive-fuzzy-finder">2. Open an interactive fuzzy-finder</h3>
+
+<p>Now, we have a huge list of results. Pipe the results to <a href="https://github.com/junegunn/fzf">fzf</a></p>
+
+<pre><code class="language-bash">$ fd . -d 5 ${HOME}/project/ -E vendor | fzf
+</code></pre>
+
+<p><img src="/directory-navigation/image-1.png" alt="Interactive mode through FZF" /></p>
+
+<p>The selection is returned as a result of the command. We could choose to handle however we want if its a directory.</p>
+
+<pre><code class="language-bash">function godir {
+    directory=$(fd -E vendor -d 5 . ${HOME}/project/ | fzf --color 16)
+    if [ ! -z  &quot;$directory&quot; ]; then
+        if [ ! -d &quot;$directory&quot; ]; then
+            # Its a file. cd to the directory.
+            cd $(dirname &quot;$directory&quot;)
+        else
+            # cd to the directory
+            cd $directory
+        fi
+    fi
+}
+
+$ godir # opens an interactive finder now
+</code></pre>
+
+<p>We have a basic interactive finder now. Let&rsquo;s add a little bit of preview feature before deciding to change directory.</p>
+
+<blockquote>
+<p>Alternatives: <a href="https://github.com/jhawthorn/fzy">jhawthorn/fzy</a>, <a href="https://github.com/lotabout/skim">lotabout/skim</a></p>
+</blockquote>
+
+<h3 id="3-preview">3. Preview</h3>
+
+<p><code>fzf</code> allows us to run a preview command before actually making the selection. Lets do the following,</p>
+
+<ul>
+<li>If its a directory, list the files.</li>
+<li>If its a file, preview the file</li>
+</ul>
+
+<pre><code class="language-bash">function previewSelection {
+    directory=$1
+    if [ ! -z  &quot;$directory&quot; ]; then
+        if [ ! -d &quot;$directory&quot; ]; then
+            # cat but with syntax highlighting
+            bat --color=always &quot;$directory&quot;
+        else
+            # ls with colors and git-aware
+            exa --color=always -l --git --git-ignore -h $directory
+        fi
+    fi
+}
+
+# Export the function
+export -f previewSelection
+</code></pre>
+
+<p>Now, in our previous function we change our fzf to preview our selection.</p>
+
+<pre><code class="language-bash">fd -E vendor -d 5 . ${HOME}/project/ | fzf --color 16 --preview &quot;previewSelection {}&quot;
+</code></pre>
+
+<p><strong>Preview a directory with exa:</strong></p>
+
+<p><img src="/directory-navigation/image-2.png" alt="preview-a-directory" /></p>
+
+<blockquote>
+<p>Alternatives: You could just use <code>ls</code>.</p>
+</blockquote>
+
+<p><strong>Preview a file with bat:</strong></p>
+
+<p><img src="/directory-navigation/image-3.png" alt="preview-a-file" /></p>
+
+<blockquote>
+<p>Alternatives: <code>cat</code> or any other highlight tool you would want.</p>
+</blockquote>
+
+<h3 id="4-our-final-script">4. Our final script</h3>
+
+<pre><code class="language-bash">function previewSelection {
+    directory=$1
+    if [ ! -z  &quot;$directory&quot; ]; then
+        if [ ! -d &quot;$directory&quot; ]; then
+            # cat but with syntax highlighting
+            bat --color=always &quot;$directory&quot;
+        else
+            # ls with colors and git-aware
+            exa --color=always -l --git --git-ignore -h $directory
+        fi
+    fi
+}
+
+# Export the function
+export -f previewSelection
+
+function gobir {
+    directory=$(fd -E vendor -d 5 . ${HOME}/project/ | fzf --color 16 --preview &quot;previewSelection {}&quot; )
+    if [ ! -z  &quot;$directory&quot; ]; then
+        if [ ! -d &quot;$directory&quot; ]; then
+            # Its a file. cd to the directory.
+            cd $(dirname &quot;$directory&quot;)
+        else
+            # cd to the directory
+            cd $directory
+        fi
+    fi
+}
+</code></pre>
+
+<h3 id="tools-reference">Tools Reference</h3>
+
+<ul>
+<li><a href="https://github.com/sharkdp/fd">sharkdp/fd</a></li>
+<li><a href="https://github.com/sharkdp/bat">sharkdp/bat</a></li>
+<li><a href="https://github.com/ogham/exa">ogham/exa</a></li>
+<li><a href="https://github.com/junegunn/fzf">junegunn/fzf</a></li>
+</ul>
+
+                </section>
+            </article>
+
+            
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    
+    <a class="symbol" href="https://www.github.com/aswinkarthik">
+        github
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2019 <i class="fa fa-heart" aria-hidden="true"></i> Aswin Karthik
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://aswinkarthik.dev/js/jquery-3.3.1.min.js"></script>
+<script src="https://aswinkarthik.dev/js/main.js"></script>
+<script src="https://aswinkarthik.dev/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+    </body>
+</html>
