@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<meta name="author" content="Aswin Karthik">
+		<meta name="description" content="Programmer">
+		<meta name="generator" content="Hugo 0.51" />
+		<title>Redis HA on Kubernetes &middot; Aswin Karthik&#39;s Personal site</title>
+		<link rel="shortcut icon" href="https://aswinkarthik.dev/images/favicon.ico">
+		<link rel="stylesheet" href="https://aswinkarthik.dev/css/style.css">
+		<link rel="stylesheet" href="https://aswinkarthik.dev/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://aswinkarthik.dev/css/monosocialiconsfont.css">
+		
+
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://aswinkarthik.dev/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://aswinkarthik.dev/posts'>Archive</a>
+	<a href='https://aswinkarthik.dev/tags'>Tags</a>
+	<a href='https://aswinkarthik.dev/about'>About</a>
+
+	
+
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        Redis HA on Kubernetes
+                    </h1>
+                    <h2 class="headline">
+                    Jan 14, 2020 20:43
+                    · 656 words
+                    · 4 minute read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://aswinkarthik.dev/tags/redis-ha">redis-ha</a>
+                          
+                              <a href="https://aswinkarthik.dev/tags/kubernetes">kubernetes</a>
+                          
+                              <a href="https://aswinkarthik.dev/tags/helm-charts">helm-charts</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    
+
+<p>I recently had an oppurtunity to setup redis HA on Kubernetes. This was done using the <a href="https://github.com/helm/charts/tree/master/stable/redis-ha">redis-ha</a> stable helm chart. This blog contains details on how the default installation works, observations and few tweaks done to meet our requirements.</p>
+
+<blockquote>
+<p>Note: Check README of the redis-ha chart for installation instructions.</p>
+</blockquote>
+
+<h2 id="redis-ha-components">Redis-HA Components</h2>
+
+<p>The typical components required for Redis-HA setup</p>
+
+<ol>
+<li>Redis
+
+<ul>
+<li>The KV store</li>
+<li>One takes the responsibility of Master</li>
+<li>The Replicas syncs data from master using <code>replicaof</code> command.</li>
+</ul></li>
+<li>Sentinel
+
+<ul>
+<li>Responsible to trigger replication on slaves</li>
+<li>Failure detection</li>
+<li>Automatic Failover</li>
+<li>Shipped as <code>redis-sentinel</code></li>
+<li>Sentinel can be queried on which instance is master.</li>
+</ul></li>
+<li>Proxy
+
+<ul>
+<li>A redis &ldquo;Master&rdquo; aware proxy</li>
+<li>Routes connections to actual master by querying sentinel.</li>
+<li>The chart uses HAProxy (with appropriate configurations) as the proxy layer.</li>
+</ul></li>
+</ol>
+
+<p>For more reading on <a href="https://redis.io/topics/replication">redis replication</a>.</p>
+
+<h2 id="on-kubernetes">On Kubernetes</h2>
+
+<ol>
+<li>Redis runs as Statefulsets with Sentinel as Sidecar</li>
+<li>HAProxy runs as Deployment with static configuration.</li>
+</ol>
+
+<p>Visualizing it,</p>
+
+<p><img src="/redis-HA-on-Kubernetes/redis-ha-setup-on-kubernetes-overview.png" alt="Redis HA on Kubernetes overview" /></p>
+
+<p>Explaining the above setup,</p>
+
+<ul>
+<li>The application connects to HAProxy instances (through Kuberentes Service or Pod IPs of HAProxy)</li>
+<li>Each replica of the statefulset has a Kubernetes Service exposed for it. The chart terms it &ldquo;announce&rdquo; service. The sole reason for the announce service is they have one Cluster IP/DNS name through which the HAproxy can query the sentinel on which instance is master and route connections to the instance.</li>
+<li>HAProxy finds master by querying sentinel <code>SENTINEL get-master-addr-by-name</code> and also queries redis instance with <code>info replication</code> and &ldquo;grep&rdquo;ping for the string &ldquo;role:master&rdquo;</li>
+<li>Each statefulset replica has redis running on port <code>6379</code> and sentinel running on port <code>26379</code>.</li>
+</ul>
+
+<p>It is important that we run atleast 3 instances. For more information on redis-sentinel setup &amp; failover, check this <a href="https://redis.io/topics/sentinel">documentation</a>. Configurations like <code>down-after-milliseconds</code>, <code>failover-timeout</code> need to be configured accordingly for your setup.</p>
+
+<h2 id="issues">Issues</h2>
+
+<p>Personally, I had 2 issues with the above setup.</p>
+
+<ol>
+<li><p>Sentinel and Redis pods are coupled together. This means if a node stops responding, the redis and the sentinel pod goes unresponsive together. The sentinel could might as well be a separate component so that failover can be done independently. However, the <a href="https://redis.io/topics/sentinel#example-2-basic-setup-with-three-boxes">setup</a> described in Redis official docs is what the chart implements. We felt pulling out the sentinel out of the statefulset as a deployment required lots of effort, and hence went with what came with the chart.</p></li>
+
+<li><p>Performance impact due to additional hops. The HAProxy uses static Cluster IP to route traffic to the master instance. This meant the following hops: App to HAProxy, HAProxy to Kuberentes Service, Redis Pod IP. We wanted to try an alternative to make HAProxy reach out to Pod IP directly without the need for a NAT (read Kuberentes Service) in-between.</p></li>
+</ol>
+
+<h2 id="alternate-setup">Alternate Setup</h2>
+
+<p>We have Consul running on our clusters which is used for Service Discovery. The idea is</p>
+
+<ul>
+<li>Register pods of Statefulset to Consul</li>
+<li>Use <a href="https://github.com/hashicorp/consul-template">consul-template</a> to dynamically render HAProxy upstreams as Pod IP addresses directly (instead of the Kubernetes Service).</li>
+</ul>
+
+<h2 id="performance-analysis">Performance analysis</h2>
+
+<p><code>redis-benchmark</code> is a tool shipped with redis to measure performance.</p>
+
+<pre><code class="language-bash">## Test get and set operations
+redis-benchmark -c 100 -t get,set -h ${HAPROXY_SVC_HOST}
+</code></pre>
+
+<p>3 Setups were tested.</p>
+
+<ol>
+<li>Redis Standalone
+
+<ul>
+<li>Directly connected via Pod IP</li>
+</ul></li>
+<li>Redis HA as per default chart
+
+<ul>
+<li>HAProxy upstreams as Kubernetes Service of Redis instance.</li>
+</ul></li>
+<li>Redis HA using Consul Template
+
+<ul>
+<li>HAProxy upstreams as Pod IP addresses Redis instance.</li>
+</ul></li>
+</ol>
+
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Standalone</th>
+<th>Redis HA with K8s Service</th>
+<th>Redis HA with Pod IP</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>GET</td>
+<td>51599.59 ops</td>
+<td>37257.82 ops</td>
+<td>44014.08 ops</td>
+</tr>
+
+<tr>
+<td>SET</td>
+<td>53734.55 ops</td>
+<td>34989.50 ops</td>
+<td>42247.57 ops</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>ops: operations per second</p>
+</blockquote>
+
+<p>As expected standalone tops the benchmark. However, skipping the kubernetes service does help us in more throughput.</p>
+
+<h3 id="other-thoughts">Other thoughts</h3>
+
+<p>We had to register to consul the pods and use <code>consul-template</code> to dynamically render HAProxy configurations. There was no tool to watch on Kubernetes API and dynamically render templates based on status E.g watch endpoints API to render Pod IPs directly in HAProxy config. This gave the idea of <a href="https://github.com/thecasualcoder/kube-template">kube-template</a>. A template rendering tool that queries Kuberenetes API and also watches for changes and re-rendering when needed.</p>
+
+                </section>
+            </article>
+
+            
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    
+    <a class="symbol" href="https://www.github.com/aswinkarthik">
+        github
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2020 <i class="fa fa-heart" aria-hidden="true"></i> Aswin Karthik
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://aswinkarthik.dev/js/jquery-3.3.1.min.js"></script>
+<script src="https://aswinkarthik.dev/js/main.js"></script>
+<script src="https://aswinkarthik.dev/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-146772394-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+
+    </body>
+</html>

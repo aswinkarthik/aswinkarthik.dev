@@ -30,6 +30,15 @@
     </item>
     
     <item>
+      <title>Helm Charts</title>
+      <link>https://aswinkarthik.dev/tags/helm-charts/</link>
+      <pubDate>Tue, 14 Jan 2020 20:43:16 +0530</pubDate>
+      
+      <guid>https://aswinkarthik.dev/tags/helm-charts/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>How To</title>
       <link>https://aswinkarthik.dev/tags/how-to/</link>
       <pubDate>Fri, 30 Aug 2019 12:45:00 +0530</pubDate>
@@ -44,6 +53,24 @@
       <pubDate>Fri, 30 Aug 2019 12:45:00 +0530</pubDate>
       
       <guid>https://aswinkarthik.dev/tags/interactive/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kubernetes</title>
+      <link>https://aswinkarthik.dev/tags/kubernetes/</link>
+      <pubDate>Tue, 14 Jan 2020 20:43:16 +0530</pubDate>
+      
+      <guid>https://aswinkarthik.dev/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Redis Ha</title>
+      <link>https://aswinkarthik.dev/tags/redis-ha/</link>
+      <pubDate>Tue, 14 Jan 2020 20:43:16 +0530</pubDate>
+      
+      <guid>https://aswinkarthik.dev/tags/redis-ha/</guid>
       <description></description>
     </item>
     

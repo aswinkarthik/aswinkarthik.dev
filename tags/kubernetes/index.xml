@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kubernetes on Aswin Karthik&#39;s Personal site</title>
+    <link>https://aswinkarthik.dev/tags/kubernetes/</link>
+    <description>Recent content in Kubernetes on Aswin Karthik&#39;s Personal site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 14 Jan 2020 20:43:16 +0530</lastBuildDate>
+    
+	<atom:link href="https://aswinkarthik.dev/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Redis HA on Kubernetes</title>
+      <link>https://aswinkarthik.dev/posts/redis-ha-on-kubernetes/</link>
+      <pubDate>Tue, 14 Jan 2020 20:43:16 +0530</pubDate>
+      
+      <guid>https://aswinkarthik.dev/posts/redis-ha-on-kubernetes/</guid>
+      <description>I recently had an oppurtunity to setup redis HA on Kubernetes. This was done using the redis-ha stable helm chart. This blog contains details on how the default installation works, observations and few tweaks done to meet our requirements.
+ Note: Check README of the redis-ha chart for installation instructions.
+ Redis-HA Components The typical components required for Redis-HA setup
+ Redis  The KV store One takes the responsibility of Master The Replicas syncs data from master using replicaof command.</description>
+    </item>
+    
+  </channel>
+</rss>

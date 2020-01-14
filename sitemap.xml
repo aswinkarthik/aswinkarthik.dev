@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://aswinkarthik.dev/posts/redis-ha-on-kubernetes/</loc>
+    <lastmod>2020-01-14T20:43:16+05:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://aswinkarthik.dev/posts/directory-navigation/</loc>
     <lastmod>2019-08-30T12:45:00+05:30</lastmod>
   </url>
@@ -19,7 +24,7 @@
   
   <url>
     <loc>https://aswinkarthik.dev/</loc>
-    <lastmod>2019-08-30T12:45:00+05:30</lastmod>
+    <lastmod>2020-01-14T20:43:16+05:30</lastmod>
     <priority>0</priority>
   </url>
   
@@ -41,6 +46,12 @@
   </url>
   
   <url>
+    <loc>https://aswinkarthik.dev/tags/helm-charts/</loc>
+    <lastmod>2020-01-14T20:43:16+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://aswinkarthik.dev/tags/how-to/</loc>
     <lastmod>2019-08-30T12:45:00+05:30</lastmod>
     <priority>0</priority>
@@ -53,8 +64,20 @@
   </url>
   
   <url>
+    <loc>https://aswinkarthik.dev/tags/kubernetes/</loc>
+    <lastmod>2020-01-14T20:43:16+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://aswinkarthik.dev/posts/</loc>
-    <lastmod>2019-08-30T12:45:00+05:30</lastmod>
+    <lastmod>2020-01-14T20:43:16+05:30</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://aswinkarthik.dev/tags/redis-ha/</loc>
+    <lastmod>2020-01-14T20:43:16+05:30</lastmod>
     <priority>0</priority>
   </url>
   
