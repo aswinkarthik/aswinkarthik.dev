@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Aswin Karthik&#39;s Personal site</title>
+    <title>Aswin&#39;s Site</title>
     <link>https://aswinkarthik.dev/</link>
-    <description>Recent content on Aswin Karthik&#39;s Personal site</description>
+    <description>Recent content on Aswin&#39;s Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 14 Jan 2020 20:43:16 +0530</lastBuildDate>
@@ -13,10 +13,10 @@
     
     <item>
       <title>Redis HA on Kubernetes</title>
-      <link>https://aswinkarthik.dev/posts/redis-ha-on-kubernetes/</link>
+      <link>https://aswinkarthik.dev/post/redis-ha-on-kubernetes/</link>
       <pubDate>Tue, 14 Jan 2020 20:43:16 +0530</pubDate>
       
-      <guid>https://aswinkarthik.dev/posts/redis-ha-on-kubernetes/</guid>
+      <guid>https://aswinkarthik.dev/post/redis-ha-on-kubernetes/</guid>
       <description>I recently had an oppurtunity to setup redis HA on Kubernetes. This was done using the redis-ha stable helm chart. This blog contains details on how the default installation works, observations and few tweaks done to meet our requirements.
  Note: Check README of the redis-ha chart for installation instructions.
  Redis-HA Components The typical components required for Redis-HA setup
@@ -25,10 +25,10 @@
     
     <item>
       <title>How I navigate directories?</title>
-      <link>https://aswinkarthik.dev/posts/directory-navigation/</link>
+      <link>https://aswinkarthik.dev/post/directory-navigation/</link>
       <pubDate>Fri, 30 Aug 2019 12:45:00 +0530</pubDate>
       
-      <guid>https://aswinkarthik.dev/posts/directory-navigation/</guid>
+      <guid>https://aswinkarthik.dev/post/directory-navigation/</guid>
       <description>I do not use any autojump tools to navigate across my project directories. A simple bash function does the job for me. Customization is the main reason.
 The tools I use to create the functions can be replaced with GNU tools. I use them because they are fast and have some additional features like respect .gitignore file. Let&amp;rsquo;s create the function.
 Steps 1. Find directories or files to navigate to I need a way to list all the directories I am interested in.</description>
@@ -36,10 +36,10 @@ Steps 1. Find directories or files to navigate to I need a way to list all the d
     
     <item>
       <title>Setting up this Blog</title>
-      <link>https://aswinkarthik.dev/posts/setting-up/</link>
+      <link>https://aswinkarthik.dev/post/setting-up/</link>
       <pubDate>Wed, 28 Aug 2019 17:44:58 +0530</pubDate>
       
-      <guid>https://aswinkarthik.dev/posts/setting-up/</guid>
+      <guid>https://aswinkarthik.dev/post/setting-up/</guid>
       <description>I wanted to do a small write up on how I set this blog up. This blog uses hugo to generate content. Things to note about Hugo:
  It is a static site generator. Themes are easily pluggable. Content can be written as markdown files.  Steps 1. Github Repository Create a repository to host all your content. This is where you will be maintaining markdown files. So I created https://github.</description>
     </item>

@@ -3,17 +3,17 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://aswinkarthik.dev/posts/redis-ha-on-kubernetes/</loc>
+    <loc>https://aswinkarthik.dev/post/redis-ha-on-kubernetes/</loc>
     <lastmod>2020-01-14T20:43:16+05:30</lastmod>
   </url>
   
   <url>
-    <loc>https://aswinkarthik.dev/posts/directory-navigation/</loc>
+    <loc>https://aswinkarthik.dev/post/directory-navigation/</loc>
     <lastmod>2019-08-30T12:45:00+05:30</lastmod>
   </url>
   
   <url>
-    <loc>https://aswinkarthik.dev/posts/setting-up/</loc>
+    <loc>https://aswinkarthik.dev/post/setting-up/</loc>
     <lastmod>2019-08-28T17:44:58+05:30</lastmod>
   </url>
   
@@ -70,7 +70,7 @@
   </url>
   
   <url>
-    <loc>https://aswinkarthik.dev/posts/</loc>
+    <loc>https://aswinkarthik.dev/post/</loc>
     <lastmod>2020-01-14T20:43:16+05:30</lastmod>
     <priority>0</priority>
   </url>

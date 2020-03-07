@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Interactive on Aswin Karthik&#39;s Personal site</title>
+    <title>Interactive on Aswin&#39;s Site</title>
     <link>https://aswinkarthik.dev/tags/interactive/</link>
-    <description>Recent content in Interactive on Aswin Karthik&#39;s Personal site</description>
+    <description>Recent content in Interactive on Aswin&#39;s Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 30 Aug 2019 12:45:00 +0530</lastBuildDate>
@@ -13,10 +13,10 @@
     
     <item>
       <title>How I navigate directories?</title>
-      <link>https://aswinkarthik.dev/posts/directory-navigation/</link>
+      <link>https://aswinkarthik.dev/post/directory-navigation/</link>
       <pubDate>Fri, 30 Aug 2019 12:45:00 +0530</pubDate>
       
-      <guid>https://aswinkarthik.dev/posts/directory-navigation/</guid>
+      <guid>https://aswinkarthik.dev/post/directory-navigation/</guid>
       <description>I do not use any autojump tools to navigate across my project directories. A simple bash function does the job for me. Customization is the main reason.
 The tools I use to create the functions can be replaced with GNU tools. I use them because they are fast and have some additional features like respect .gitignore file. Let&amp;rsquo;s create the function.
 Steps 1. Find directories or files to navigate to I need a way to list all the directories I am interested in.</description>
