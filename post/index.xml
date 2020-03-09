@@ -6,10 +6,21 @@
     <description>Recent content in Posts on Aswin&#39;s Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 14 Jan 2020 20:43:16 +0530</lastBuildDate>
+    <lastBuildDate>Sun, 23 Feb 2020 17:14:13 +0530</lastBuildDate>
     
 	<atom:link href="https://aswinkarthik.dev/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Build a Minikube From Scratch</title>
+      <link>https://aswinkarthik.dev/post/build-a-minikube/</link>
+      <pubDate>Sun, 23 Feb 2020 17:14:13 +0530</pubDate>
+      
+      <guid>https://aswinkarthik.dev/post/build-a-minikube/</guid>
+      <description>Inspired from this What-is-even-kubelet series of blogs.
+In this blog, we will build a minikube from scratch. This is targetted at people who are already familiar with Kubernetes and are interested to learn about the internal key components of the Kubernetes master by building our own Kubernetes cluster by hand.
+Components - The Recap To refresh you about the various components of master from the official blog, the components are</description>
+    </item>
     
     <item>
       <title>Redis HA on Kubernetes</title>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-146772394-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+  <meta charset="utf-8">
+  <meta name="generator" content="Hugo 0.66.0" />
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="">
+  <meta property="og:url" content="https://aswinkarthik.dev/post/build-a-minikube/">
+
+  <title>Build a Minikube From Scratch - Aswin&#39;s Site</title>
+  <meta property="og:title" content="Build a Minikube From Scratch - Aswin&#39;s Site">
+  <meta property="og:type" content="article">
+  <meta name="description" content="">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Arvo:400,700">
+  <link rel="stylesheet" href="/css/highlight.css">
+  <link rel="stylesheet" href="/css/journal.css">
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Aswin&#39;s Site">
+
+</head>
+
+<body>
+  <div class="container">
+
+    <nav class="site-nav">
+      <a href="https://aswinkarthik.dev/">Index</a>
+    </nav>
+
+
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Build a Minikube From Scratch</h1>
+      <time class="post-date" datetime="2020-02-23 17:14:13 &#43;0530">23 Feb 2020</time>
+    </header>
+
+    <p>Inspired from this <a href="http://kamalmarhubi.com/blog/2015/08/27/what-even-is-a-kubelet/">What-is-even-kubelet series</a> of blogs.</p>
+<p>In this blog, we will build a minikube from scratch. This is targetted at people who are already familiar with Kubernetes and are interested to learn about the internal key components of the Kubernetes master by building our own Kubernetes cluster by hand.</p>
+<h2 id="components---the-recap">Components - The Recap</h2>
+<p>To refresh you about the various components of master from the official <a href="https://kubernetes.io/docs/concepts/overview/components/">blog</a>, the components are</p>
+<ol>
+<li>Kube API Server</li>
+<li>Scheduler</li>
+<li>Controller Manager</li>
+<li>ETCD</li>
+<li>Cloud Controller Manager</li>
+<li>Kubelet</li>
+<li>Kube Proxy</li>
+</ol>
+<p>However, let us not go through what those components do, for now. Instead, we will take a bottom-up approach of building a cluster with components that we require then and there from the ground up.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ol>
+<li>VirtualBox</li>
+<li>Vagrant</li>
+</ol>
+<blockquote>
+<p>I have not tested these steps on a Linux machine.</p>
+</blockquote>
+<h2 id="steps">Steps</h2>
+<h4 id="step-1-a-vm-with-necessary-tools-installed">Step 1: A VM with necessary tools installed.</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git clone https://github.com/aswinkarthik/build-a-minikube
+$ cd build-a-minikube
+$ vagrant up
+</code></pre></div><p>As part of provisioning the following are installed,</p>
+<ol>
+<li>Docker</li>
+<li>Kubelet</li>
+<li>Kubectl</li>
+</ol>
+<p><em>Check your setup by</em></p>
+<pre><code>$ vagrant ssh
+
+## Switch to root
+vagrant@k8s-master:~$ sudo su -
+
+root@k8s-master:~$ kubelet --version
+Kubernetes v1.17.0
+
+root@k8s-master:~$ kubectl version --client
+Client Version: version.Info{Major:&quot;1&quot;, Minor:&quot;17&quot;, GitVersion:&quot;v1.17.0&quot;, GitCommit:&quot;70132b0f130acc0bed193d9ba59dd186f0e634cf&quot;, GitTreeState:&quot;clean&quot;, BuildDate:&quot;2019-12-07T21:20:10Z&quot;, GoVersion:&quot;go1.13.4&quot;, Compiler:&quot;gc&quot;, Platform:&quot;linux/amd64&quot;}
+</code></pre><h4 id="step-2-kubelet">Step 2: Kubelet</h4>
+<p>Kubelet is the basic building block of a Kubernetes cluster. Kubelet runs pods. To run pods, let us use the <code>--pod-manifest-path</code> flag.</p>
+<pre><code>root@k8s-master:~$ mkdir manifests
+
+root@k8s-master:~$ kubelet --pod-manifest-path ./manifests
+I0309 16:59:13.825187    4553 server.go:416] Version: v1.17.0
+I0309 16:59:13.833665    4553 plugins.go:100] No cloud provider specified.
+W0309 16:59:13.833703    4553 server.go:555] standalone mode, no API client
+...
+</code></pre><p>Kubelet is now running, watching for pod specifications in the directory <code>manifests</code>. Let us drop a simple pod YAML inside the directory.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-YAML" data-lang="YAML"><span style="color:#66d9ef">apiVersion</span>: v1
+<span style="color:#66d9ef">kind</span>: Pod
+<span style="color:#66d9ef">metadata</span>:
+  <span style="color:#66d9ef">name</span>: nginx
+<span style="color:#66d9ef">spec</span>:
+  <span style="color:#66d9ef">containers</span>:
+  - <span style="color:#66d9ef">name</span>: nginx
+    <span style="color:#66d9ef">image</span>: nginx
+    <span style="color:#66d9ef">ports</span>:
+    - <span style="color:#66d9ef">containerPort</span>: <span style="color:#ae81ff">80</span>
+  <span style="color:#66d9ef">hostName</span>: k8s-master
+</code></pre></div><p><em>Start another session</em></p>
+<pre><code>$ vagrant ssh
+vagrant@k8s-master:~$ sudo su -
+
+root@k8s-master:~$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+## No containers
+
+## Drop a file
+root@k8s-master:~$ cp /src/01-simple-nginx-pod.yml ./manifests/
+root@k8s-master:~$ watch docker ps
+</code></pre><p>The <code>Nginx</code> container should be running. Kubelet converted our pod specification to appropriate <code>docker run</code> commands i.e container runtime commands. Let us kill the container.</p>
+<pre><code>root@k8s-master:~$ docker stop &lt;nginx-container-id&gt;
+root@k8s-master:~$ watch docker ps
+</code></pre><p>The <code>nginx</code> container comes back up. We just saw 2 responsibilities of Kubelet.</p>
+<p><strong>Kubelet Responsibilities</strong></p>
+<ol>
+<li>Convert pod specifications to container runtime commands.</li>
+<li>Make sure the container is running by constantly monitoring the container runtime.</li>
+</ol>
+<p><strong>But there was a pause,</strong></p>
+<p>We noticed that there were 2 containers running (even if we did not specify any sidecars)</p>
+<ol>
+<li>nginx</li>
+<li>pause</li>
+</ol>
+<p>Before we look into it,</p>
+<p><strong>Access the nginx</strong></p>
+<p>Let us try to access the nginx container. To get the IP address of the container.</p>
+<pre><code>root@k8s-master:~$ docker ps | grep &quot; nginx &quot;
+ae19ebe965b8        nginx                  &quot;nginx -g 'daemon of…&quot;   4 minutes ago
+root@k8s-master:~$ docker inspect ae19ebe965b8 | jq '.[0].NetworkSettings'
+{
+  ...
+  &quot;SecondaryIPAddresses&quot;: null,
+  &quot;Gateway&quot;: &quot;&quot;,
+  &quot;IPAddress&quot;: &quot;&quot;,
+  &quot;MacAddress&quot;: &quot;&quot;,
+  ...
+}
+</code></pre><p>We notice that the nginx container does not have any IP address associated with it. However, doing the same for the <code>pause</code> container.</p>
+<pre><code>root@k8s-master:~$ docker inspect 9c47f90031a3 | jq '.[0].NetworkSettings.IPAddress'
+&quot;172.17.0.2&quot;
+root@k8s-master:~$ curl 172.17.0.2
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Welcome to nginx!&lt;/title&gt;
+...
+</code></pre><p>If we access the pause container, we get the nginx welcome page.</p>
+<p>This is because, the nginx docker container&rsquo;s network is configured to be the pause container i.e by doing a <code>docker run --network=container:&lt;pause-container-id&gt;</code>. This would make both the container share the <em>network namespace</em> i.e both containers can access each other through <code>localhost</code>.</p>
+<p>The primary reason why the <code>pause</code> container is added is to retain the linux namespace from getting removed in case the nginx container crashes/halts. (if all process under a given namespace is stopped, the namespace is also lost). More info can be found in the <a href="https://www.ianlewis.org/en/almighty-pause-container">Almighty Pause Container</a> blog.</p>
+<p><img src="/build-a-minikube/pod-zoomed-in.png" alt="Pod Zoomed In"></p>
+<p>Let us try using the CLI</p>
+<pre><code>root@k8s-master:~$ kubectl get pods
+The connection to the server localhost:8080 was refused - did you specify the right host or port?
+</code></pre><p>The <code>kubectl</code> client still needs an API server to talk to. Since we now no how to run workloads on docker through kubelet, let us run the API server.</p>
+<h4 id="step-3-api-server">Step 3: API Server</h4>
+<p>API Server is the single point of contact for users/components of a cluster. Using verbose mode in the above command reveals that the client <code>kubectl</code> does a RESTful GET request to the API.</p>
+<pre><code>root@k8s-master:~$ kubectl get pods -v=8
+</code></pre><p>The API Server needs ETCD as storage. Let us deploy both these components to our cluster.</p>
+<pre><code>root@k8s-master:~$ cp /src/02-api-server.yml ./manifests/
+root@k8s-master:~$ cp /src/03-etcd.yml ./manifests/
+root@k8s-master:~$ docker ps
+## API Servers and ETCD with their respective pause container starts
+</code></pre><p>Now rerunning the same command,</p>
+<pre><code>root@k8s-master:~$ kubectl get nodes
+No resources found in default namespace.
+</code></pre><p>As you can see now, a successful response is returned.</p>
+<p><img src="/build-a-minikube/kubelet-with-api-server.png" alt="Kubelet with API Server"></p>
+<p>No nodes were returned in the <code>kubectl</code> command because no <code>kubelet</code> is connected to the API Server. We do have a <code>kubelet</code> running. Let us connect it to the API Server. Stop the kubelet and re-run it by</p>
+<pre><code>root@k8s-master:~$ kubelet --pod-manifest-path ./manifests --kubeconfig /src/kubeconfig.yml
+</code></pre><p>Now, if we query the API server for nodes</p>
+<pre><code>root@k8s-master:~$ kubectl get nodes
+NAME         STATUS   ROLES    AGE   VERSION
+k8s-master   Ready    &lt;none&gt;   22s   v1.17.0
+</code></pre><p>We have a node up and running. It is time to &ldquo;deploy&rdquo; an Nginx instead of running it as a pod.</p>
+<h4 id="step-4-deploy-nginx">Step 4: Deploy Nginx</h4>
+<p>As we now have nodes, it is time to run our nginx workload as a deployment so that we can push updates and make sure it has desired number of replicas up all the time.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-YAML" data-lang="YAML"><span style="color:#66d9ef">apiVersion</span>: apps/v1
+<span style="color:#66d9ef">kind</span>: Deployment
+<span style="color:#66d9ef">metadata</span>:
+  <span style="color:#66d9ef">name</span>: nginx-deployment
+<span style="color:#66d9ef">spec</span>:
+  <span style="color:#66d9ef">selector</span>:
+    <span style="color:#66d9ef">matchLabels</span>:
+      <span style="color:#66d9ef">app</span>: nginx
+  <span style="color:#66d9ef">replicas</span>: <span style="color:#ae81ff">2</span>
+  <span style="color:#66d9ef">template</span>:
+    <span style="color:#66d9ef">metadata</span>:
+      <span style="color:#66d9ef">labels</span>:
+        <span style="color:#66d9ef">app</span>: nginx
+    <span style="color:#66d9ef">spec</span>:
+      <span style="color:#66d9ef">containers</span>:
+      - <span style="color:#66d9ef">name</span>: nginx
+        <span style="color:#66d9ef">image</span>: nginx
+        <span style="color:#66d9ef">ports</span>:
+        - <span style="color:#66d9ef">containerPort</span>: <span style="color:#ae81ff">80</span>
+</code></pre></div><pre><code>root@k8s-master:~$ kubectl apply -f /src/04-nginx-deployment.yml
+deployment.apps/nginx-deployment created
+root@k8s-master:~$ kubectl get pods
+## No pods from nginx-deployment
+</code></pre><blockquote>
+<p>Ignore the &ldquo;nginx-k8s-master&rdquo; pod so as to not cause confusion. It was the test pod we created initially.</p>
+</blockquote>
+<p><em>What could be the reason?</em></p>
+<p>Let us see if atleast the <em>ReplicaSets</em> were created.</p>
+<pre><code>root@k8s-master:~$ kubectl get replicaset
+No resources found in default namespace.
+</code></pre><p>Even replicasets have not been created.</p>
+<p>Let us add another component to our cluster: <em>ControllerManager</em>.</p>
+<pre><code>root@k8s-master:~$ cp /src/05-controller-mngr.yml ./manifests/
+</code></pre><p>Wait for sometime for the container to startup.</p>
+<pre><code>root@k8s-master:~$ kubectl get replicaset
+NAME                          DESIRED   CURRENT   READY   AGE
+nginx-deployment-54f57cf6bf   2         2         0       3m6s
+</code></pre><p>Our <em>Replicaset</em> is up. Let us check the pods.</p>
+<pre><code>root@k8s-master:~$ kubectl get pods
+NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-54f57cf6bf-5gbz7   0/1     Pending   0          3m32s
+nginx-deployment-54f57cf6bf-d5ftb   0/1     Pending   0          3m32s
+</code></pre><p>Our pods are still not in running state. They are in <em>Pending</em> state.</p>
+<p><em>What could be the reason?</em></p>
+<p>Let us add another component to our cluster: <em>Scheduler</em>.</p>
+<pre><code>root@k8s-master:~$ cp /src/06-scheduler.yml ./manifests/
+## Wait for it to run
+root@k8s-master:~$ kubectl get pods
+NAME                               READY   STATUS    RESTARTS   AGE
+nginx-deployment-6fcf476c4-7td5l   1/1     Running   0          20s
+nginx-deployment-6fcf476c4-q664p   1/1     Running   0          22s
+## Pods are running
+</code></pre><p>Pods are finally in running state in our cluster.</p>
+<h4 id="step-5-components-responsibilities">Step 5: Components Responsibilities</h4>
+<p><strong>Controller Manager Responsibilities</strong></p>
+<ul>
+<li>Created ReplicaSet watching the Deployment, Created Pods watching the replica set.</li>
+<li>Responsibile for the reconciliation loop i.e checks what is the <em>Desired</em> state and checks the <em>Current</em> state, performs actions to converge <em>current</em> to <em>desired</em>.</li>
+<li>Communicates via the API server to fetch the different resources it monitors.</li>
+</ul>
+<p><strong>Scheduler Responsibilities</strong></p>
+<ul>
+<li>Watched for pods with <em>Pending</em> status.</li>
+<li>Assigned node to pods by setting <code>.spec.nodeName</code> of the pod spec.</li>
+</ul>
+<p><strong>ETCD Responsibilities</strong></p>
+<ul>
+<li>Distributed Store.</li>
+<li>Stores all state (E.g Pod spec, Deployment spec).</li>
+<li>Stateful component of the cluster.</li>
+</ul>
+<p><strong>API Server Responsibilities</strong></p>
+<ul>
+<li>A RESTful service to access Etcd.</li>
+<li>Point of contact/interaction for all the components.</li>
+<li>Provides a way to &ldquo;watch&rdquo; for changes.</li>
+</ul>
+<h2 id="in-the-end">In the end</h2>
+<p>Our cluster has the capability to accept a <code>Deployment</code> resource and create <code>Pods</code> to run our workloads.</p>
+<p><img src="/build-a-minikube/final-state.png" alt="Final state"></p>
+<blockquote>
+<p>Output of <a href="https://github.com/ahmetb/kubectl-tree">kubectl tree</a></p>
+</blockquote>
+<p><strong>What is not covered (yet)?</strong></p>
+<ul>
+<li>DNS Resolution</li>
+<li>Networking across containers</li>
+<li>Kube Proxy</li>
+</ul>
+<p><strong>Revisiting the components image</strong></p>
+<p><img src="/build-a-minikube/components-of-kubernetes.png" alt="Revisiting official blog"></p>
+
+
+  </article>
+
+
+      <footer class="site-footer">
+        <span itemscope itemtype="http://schema.org/Person">
+          <link itemprop="url" href="https://aswinkarthik.dev/">
+          <span itemprop="name"></span>
+
+          <br>
+
+          <a itemprop="sameAs" href="https://github.com/aswinkarthik" title="GitHub">GH</a>
+
+          
+
+          
+        </span>
+
+        
+      </footer>
+    </div>
+
+  <script src="/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  </body>
+</html>
+

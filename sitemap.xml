@@ -4,7 +4,17 @@
   
   <url>
     <loc>https://aswinkarthik.dev/</loc>
-    <lastmod>2020-01-14T20:43:16+05:30</lastmod>
+    <lastmod>2020-02-23T17:14:13+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://aswinkarthik.dev/post/build-a-minikube/</loc>
+    <lastmod>2020-02-23T17:14:13+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://aswinkarthik.dev/post/</loc>
+    <lastmod>2020-02-23T17:14:13+05:30</lastmod>
   </url>
   
   <url>
@@ -14,11 +24,6 @@
   
   <url>
     <loc>https://aswinkarthik.dev/tags/kubernetes/</loc>
-    <lastmod>2020-01-14T20:43:16+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://aswinkarthik.dev/post/</loc>
     <lastmod>2020-01-14T20:43:16+05:30</lastmod>
   </url>
   
