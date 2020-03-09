@@ -1,148 +1,54 @@
-<html>
+<!DOCTYPE html>
+<html lang="en-us">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="generator" content="Hugo 0.66.0" />
 
-    <title>Aswin&#39;s Site - Setting up this Blog </title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="">
+  <meta property="og:url" content="https://aswinkarthik.dev/post/setting-up/">
 
-    
-    
-    <meta content="blog, how-to" name="keywords">
-    
-    <meta content="Aswin&#39;s Site - I wanted to do a small write up on how I set this blog up. This blog uses hugo to generate content. Things to note about Hugo:
- It is a static site generator. Themes are easily pluggable. Content can be written as markdown files.  Steps 1. Github Repository Create a repository to host all your content. This is where you will be maintaining markdown files. So I created https://github." name="description">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    
+  <title>Setting up this Blog - Aswin&#39;s Site</title>
+  <meta property="og:title" content="Setting up this Blog - Aswin&#39;s Site">
+  <meta property="og:type" content="article">
+  <meta name="description" content="">
 
-    
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Arvo:400,700">
+  <link rel="stylesheet" href="/css/highlight.css">
+  <link rel="stylesheet" href="/css/journal.css">
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Aswin&#39;s Site">
 
-    
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146772394-1"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments)};
-          gtag('js', new Date());
-          gtag('config', 'UA-146772394-1');
-        </script>
-    
+</head>
 
-    
-    
-    <script type="text/javascript" async
-        src="/mathjax-3.0.0/tex-mml-chtml.js">
-    </script>
-    
-
-    <link rel="stylesheet" href="/layui/css/layui.css">
-    <link rel="stylesheet" href="/self/css/default.css">
-    <script src="/layui/layui.js"></script>
-
-
-    <link rel="stylesheet" async href="/self/css/markdown.min.css">
-    <link rel="stylesheet" async href="/self/css/gallery.css">
-    <link rel="stylesheet" async href="/font-awesome-4.7.0/css/font-awesome.min.css">
-    <script src="/self/js/lazysizes.min.js" async></script></head>
 <body>
-    
-    <header class="layui-header layui-bg-cyan">
+  <div class="container">
 
-    
-    
-    <a class="nav-self-logo" href="/">
-        Aswin&#39;s Site
-    </a>
+    <nav class="site-nav">
+      <a href="https://aswinkarthik.dev/">Index</a>
+    </nav>
 
-    <ul class="layui-nav layui-layout-right layui-bg-cyan" lay-filter="">
-        
-        
-        <li class="layui-nav-item" id="nav_big"><a href="/post/">Posts</a></li>
-        
 
-        
-            
-                <li class="layui-nav-item" id="nav_big"><a href="/">Home</a></li>
-            
-                <li class="layui-nav-item" id="nav_big"><a href="/about/">About</a></li>
-            
-        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Setting up this Blog</h1>
+      <time class="post-date" datetime="2019-08-28 17:44:58 &#43;0530">28 Aug 2019</time>
+    </header>
 
-        
-        <li class="layui-nav-item" id="nav_small">
-            <a href="javascript:;">
-                <i class="layui-icon layui-icon-app" style="font-size: 24px;"></i>
-            </a>
-
-            <dl class="layui-nav-child">
-                
-                <dd><a href="/post/">Posts</a></dd>
-                
-
-                
-                    <dd><a href="/">Home</a></dd>
-                
-                    <dd><a href="/about/">About</a></dd>
-                
-            </dl>
-        </li>
-    </ul>
-</header>
-
-<script>
-layui.use('element', function(){
-  var element = layui.element;
-});
-</script>
-        <div id="content" style="min-height:80%">
-<div class="layui-container" style="margin-bottom: 10px">
-    
-
-    <div class="layui-row layui-col-space10">
-        <div class="layui-col-md12 layui-col-sm12 layui-col-xs12">
-            <div class="layui-card single-card">
-                <br />
-                <blockquote class="layui-elem-quote markdown-body single-title" >
-                    <h1>Setting up this Blog</h1>
-                    <h3 style="margin-top:10px; margin-bottom:10px"> 
-    <i class="layui-icon layui-icon-date" style="font-size: 24px; vertical-align: -2px;"></i>
-    <span>2019-08-28</span>
-
-    
-    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 0px;"></i>
-    
-        <a href="/tags/blog">
-            <span class="layui-badge" style="vertical-align: 2px;">blog</span>
-        </a>
-    
-        <a href="/tags/how-to">
-            <span class="layui-badge" style="vertical-align: 2px;">how-to</span>
-        </a>
-    
-</h3>
-                </blockquote>
-                <div class="layui-card-body markdown-body single-content">
-                    
-
-<p>I wanted to do a small write up on how I set this blog up. This blog uses <a href="https://github.com/gohugoio/hugo">hugo</a> to generate content. Things to note about Hugo:</p>
-
+    <p>I wanted to do a small write up on how I set this blog up. This blog uses <a href="https://github.com/gohugoio/hugo">hugo</a> to generate content. Things to note about Hugo:</p>
 <ul>
 <li>It is a static site generator.</li>
 <li>Themes are easily pluggable.</li>
 <li>Content can be written as markdown files.</li>
 </ul>
-
 <h2 id="steps">Steps</h2>
-
 <h3 id="1-github-repository">1. Github Repository</h3>
-
 <p>Create a repository to host all your content. This is where you will be maintaining markdown files. So I created <a href="https://github.com/aswinkarthik/website">https://github.com/aswinkarthik/website</a>.</p>
-
 <h3 id="2-setup-using-hugo-cli">2. Setup using Hugo CLI</h3>
-
 <p>Hugo CLI allows us to bootstrap a new site.</p>
-
-<pre><code class="language-bash">$ hugo new site website
-$ cd website &amp;&amp; tree
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ hugo new site website
+$ cd website <span style="color:#f92672">&amp;&amp;</span> tree
 .
 |____archetypes
 | |____default.md
@@ -152,121 +58,98 @@ $ cd website &amp;&amp; tree
 |____config.toml
 |____data
 |____themes
-</code></pre>
-
-<blockquote>
+</code></pre></div><blockquote>
 <p>Note: Please refer Hugo docs for extensive documentation. This blog touches upon only few things I did.</p>
 </blockquote>
-
 <h3 id="3-choose-a-theme">3. Choose a theme</h3>
-
 <p>Choose a hugo theme from an <a href="https://themes.gohugo.io/">exhaustive list</a>. Add the theme as a submodule to your project. Configure <code>config.toml</code> with theme information. Refer <a href="https://github.com/aswinkarthik/website/blob/master/config.toml">here</a></p>
-
-<pre><code class="language-bash">$ git submodule add https://github.com/${THEME_URL}.git themes/${THEME_NAME}
-</code></pre>
-
-<h3 id="4-github-repository-to-host-html">4. Github Repository to host HTML</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git submodule add https://github.com/<span style="color:#e6db74">${</span>THEME_URL<span style="color:#e6db74">}</span>.git themes/<span style="color:#e6db74">${</span>THEME_NAME<span style="color:#e6db74">}</span>
+</code></pre></div><h3 id="4-github-repository-to-host-html">4. Github Repository to host HTML</h3>
 <p>We will be writing content only in Markdown files. Once that is done, we need to generate HTML content with appropriate static assets based on our theme. To host this, we need a github repository. This needs to be created in the domain name of the site. We could choose from 2 options</p>
-
 <p><em>Use Github&rsquo;s domain</em></p>
-
 <p>Create the repository in the name <code>${USERNAME}.github.io</code>. Your site will be served with the same URL.</p>
-
 <p><em>Use custom domain</em></p>
-
 <p>Create a custom domain using some provider. E.g domains.google.com. Create the repository in your name. In my case, I created the repo <code>aswinkarthik.dev</code>. Go to the <code>Settings</code> page of your repository. In the <code>GitHub Pages</code> section, specify your custom domain. Also read <a href="https://help.github.com/en/articles/setting-up-an-apex-domain">this</a> to point your domain to Github servers.</p>
-
 <p>Whatever domain you choose, make sure to update it in <code>./config.toml</code> under <code>baseURL</code>. We are at a point where if we put any HTML content into this repository, it will be served as a website. Let&rsquo;s do that.</p>
-
 <h3 id="5-continously-deploy-with-travis">5. Continously deploy with Travis</h3>
-
 <p>Now we need to generate HTML content from our markdown files. If we run <code>hugo</code> in our codebase, it would generate all those content inside <code>public</code> directory. If we could bring that content to our <code>${USERNAME}.github.io</code> repository, it will be hosted. Let&rsquo;s automate that part. We are going to use Travis CI&rsquo;s Pages deployer. Create a <code>.travis.yml</code> with content</p>
-
-<pre><code class="language-YAML">sudo: false
-dist: trusty
-install:
-- wget -q &quot;https://github.com/gohugoio/hugo/releases/download/v0.51/hugo_0.51_Linux-64bit.tar.gz&quot;
-  -O &quot;hugo.tar.gz&quot;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-YAML" data-lang="YAML"><span style="color:#66d9ef">sudo</span>: <span style="color:#66d9ef">false</span>
+<span style="color:#66d9ef">dist</span>: trusty
+<span style="color:#66d9ef">install</span>:
+- wget -q <span style="color:#e6db74">&#34;https://github.com/gohugoio/hugo/releases/download/v0.51/hugo_0.51_Linux-64bit.tar.gz&#34;</span>
+  -O <span style="color:#e6db74">&#34;hugo.tar.gz&#34;</span>
 - tar -xzf hugo.tar.gz
-script:
-- &quot;./hugo&quot;
-deploy:
-  provider: pages
-  repo: ###${USERNAME}/${REPO}###
-  fqdn: ###YOUR DOMAIN###
-  target-branch: master
-  skip_cleanup: true
-  local_dir: public
-  github_token: &quot;$GITHUB_TOKEN&quot;
-  keep-history: true
-  on:
-    branch: master
-env:
-  global:
-    secure: ###SECURE_TOKEN###
-</code></pre>
-
-<p>The above steps download hugo and create the public directory by running <code>./hugo</code>. The following needs to be configured by you (things that are prefixed with #):</p>
-
+<span style="color:#66d9ef">script</span>:
+- <span style="color:#e6db74">&#34;./hugo&#34;</span>
+<span style="color:#66d9ef">deploy</span>:
+  <span style="color:#66d9ef">provider</span>: pages
+  <span style="color:#66d9ef">repo</span>: <span style="color:#75715e">###${USERNAME}/${REPO}###</span>
+  <span style="color:#66d9ef">fqdn</span>: <span style="color:#75715e">###YOUR DOMAIN###</span>
+  <span style="color:#66d9ef">target-branch</span>: master
+  <span style="color:#66d9ef">skip_cleanup</span>: <span style="color:#66d9ef">true</span>
+  <span style="color:#66d9ef">local_dir</span>: public
+  <span style="color:#66d9ef">github_token</span>: <span style="color:#e6db74">&#34;$GITHUB_TOKEN&#34;</span>
+  <span style="color:#66d9ef">keep-history</span>: <span style="color:#66d9ef">true</span>
+  <span style="color:#66d9ef">on</span>:
+    <span style="color:#66d9ef">branch</span>: master
+<span style="color:#66d9ef">env</span>:
+  <span style="color:#66d9ef">global</span>:
+    <span style="color:#66d9ef">secure</span>: <span style="color:#75715e">###SECURE_TOKEN###</span>
+</code></pre></div><p>The above steps download hugo and create the public directory by running <code>./hugo</code>. The following needs to be configured by you (things that are prefixed with #):</p>
 <ul>
 <li><code>deploy.repo</code></li>
 <li><code>deploy.fqdn</code></li>
 <li><code>env.global.secure</code></li>
 </ul>
-
 <p>To get the secure token, first go your profile <code>Settings</code>, then <code>Developer Settings</code> and then create a <code>Personal Access token</code> with <code>public_repo</code> access (it will be under <code>repo</code>). Save the token. We need to pass this token to Travis. In order to that, we can encrypt it using Travis CLI and store it in our YAML directly.</p>
-
-<pre><code class="language-bash"># Install Travis CLI
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Install Travis CLI</span>
 $ sudo gem install travis
 
-# Login
+<span style="color:#75715e"># Login</span>
 $ travis login
 
-# Encrypt
-$ travis encrypt GITHUB_TOKEN=${THE_TOKEN_YOU_CREATED} -r ${USERNAME}/${YOUR_HUGO_REPO} --add
-</code></pre>
-
-<p>This would have populated the <code>env.global.secure</code> section of the <code>.travis.yml</code>. You can check-in this now.
+<span style="color:#75715e"># Encrypt</span>
+$ travis encrypt GITHUB_TOKEN<span style="color:#f92672">=</span><span style="color:#e6db74">${</span>THE_TOKEN_YOU_CREATED<span style="color:#e6db74">}</span> -r <span style="color:#e6db74">${</span>USERNAME<span style="color:#e6db74">}</span>/<span style="color:#e6db74">${</span>YOUR_HUGO_REPO<span style="color:#e6db74">}</span> --add
+</code></pre></div><p>This would have populated the <code>env.global.secure</code> section of the <code>.travis.yml</code>. You can check-in this now.
 Travis will build and publish the HTML files to Github pages. You could access your URL using the domain you chose.</p>
-
 <h3 id="6-future-workflow">6. Future workflow</h3>
-
 <p>To create posts</p>
-
-<pre><code class="language-bash"># This would create a Draft
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># This would create a Draft</span>
 $ hugo new posts/setting-up.md
-</code></pre>
+</code></pre></div><p>To view and live reload</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ hugo server - -D
 
-<p>To view and live reload</p>
-
-<pre><code class="language-bash">$ hugo server - -D
-
-# In case, if themes are not checked out
+<span style="color:#75715e"># In case, if themes are not checked out</span>
 $ git submodule update --init
-</code></pre>
-
-<p>To publish, remove this content from your post</p>
-
+</code></pre></div><p>To publish, remove this content from your post</p>
 <pre><code>draft: true
-</code></pre>
+</code></pre><p>Commit &amp; push, it will be automatically deployed!</p>
 
-<p>Commit &amp; push, it will be automatically deployed!</p>
-</div>
-            </div>
-        </div>
+
+  </article>
+
+
+      <footer class="site-footer">
+        <span itemscope itemtype="http://schema.org/Person">
+          <link itemprop="url" href="https://aswinkarthik.dev/">
+          <span itemprop="name"></span>
+
+          <br>
+
+          <a itemprop="sameAs" href="https://github.com/aswinkarthik" title="GitHub">GH</a>
+
+          
+
+          
+        </span>
 
         
+      </footer>
     </div>
-</div>
 
+  <script src="/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 
-        </div><footer>
-    
-    
-    <div class="layui-container">
-        <p class="copyright">Copyright © 2019 aswinkarthik.dev</p>
-    </div>
-</footer>
-</body>
+  </body>
 </html>
+

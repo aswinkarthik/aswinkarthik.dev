@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Aswin&#39;s Site</title>
@@ -42,6 +42,15 @@ Steps 1. Find directories or files to navigate to I need a way to list all the d
       <guid>https://aswinkarthik.dev/post/setting-up/</guid>
       <description>I wanted to do a small write up on how I set this blog up. This blog uses hugo to generate content. Things to note about Hugo:
  It is a static site generator. Themes are easily pluggable. Content can be written as markdown files.  Steps 1. Github Repository Create a repository to host all your content. This is where you will be maintaining markdown files. So I created https://github.</description>
+    </item>
+    
+    <item>
+      <title>About Me</title>
+      <link>https://aswinkarthik.dev/post/about/</link>
+      <pubDate>Sun, 18 Aug 2019 10:34:16 +0530</pubDate>
+      
+      <guid>https://aswinkarthik.dev/post/about/</guid>
+      <description>I am  A full stack, polyglot developer. Currently working as part of a Platform engineering team that builds tools for product teams/developers to run 100+ microservices. Experienced on building infrastructure/platforms to run a high traffic large scale web application on Kubernetes. Experienced in Infrastructure automation for deploying applications using tools/platforms like Chef on VMs or Kubernetes using containers. Experienced in building backends using Microservices architecture with exposure to technologies like Java with Spring/Dropwizard, NodeJS, Golang, Ruby on Rails.</description>
     </item>
     
   </channel>

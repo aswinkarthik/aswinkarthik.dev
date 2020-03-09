@@ -1,321 +1,169 @@
-<html>
+<!DOCTYPE html>
+<html lang="en-us">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="generator" content="Hugo 0.66.0" />
 
-    <title>Aswin&#39;s Site - How I navigate directories? </title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="">
+  <meta property="og:url" content="https://aswinkarthik.dev/post/directory-navigation/">
 
-    
-    
-    <meta content="how-to, interactive, cli-hacks" name="keywords">
-    
-    <meta content="Aswin&#39;s Site - I do not use any autojump tools to navigate across my project directories. A simple bash function does the job for me. Customization is the main reason.
-The tools I use to create the functions can be replaced with GNU tools. I use them because they are fast and have some additional features like respect .gitignore file. Let&rsquo;s create the function.
-Steps 1. Find directories or files to navigate to I need a way to list all the directories I am interested in." name="description">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    
+  <title>How I navigate directories? - Aswin&#39;s Site</title>
+  <meta property="og:title" content="How I navigate directories? - Aswin&#39;s Site">
+  <meta property="og:type" content="article">
+  <meta name="description" content="">
 
-    
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Arvo:400,700">
+  <link rel="stylesheet" href="/css/highlight.css">
+  <link rel="stylesheet" href="/css/journal.css">
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="Aswin&#39;s Site">
 
-    
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146772394-1"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments)};
-          gtag('js', new Date());
-          gtag('config', 'UA-146772394-1');
-        </script>
-    
+</head>
 
-    
-    
-    <script type="text/javascript" async
-        src="/mathjax-3.0.0/tex-mml-chtml.js">
-    </script>
-    
-
-    <link rel="stylesheet" href="/layui/css/layui.css">
-    <link rel="stylesheet" href="/self/css/default.css">
-    <script src="/layui/layui.js"></script>
-
-
-    <link rel="stylesheet" async href="/self/css/markdown.min.css">
-    <link rel="stylesheet" async href="/self/css/gallery.css">
-    <link rel="stylesheet" async href="/font-awesome-4.7.0/css/font-awesome.min.css">
-    <script src="/self/js/lazysizes.min.js" async></script></head>
 <body>
-    
-    <header class="layui-header layui-bg-cyan">
+  <div class="container">
 
-    
-    
-    <a class="nav-self-logo" href="/">
-        Aswin&#39;s Site
-    </a>
+    <nav class="site-nav">
+      <a href="https://aswinkarthik.dev/">Index</a>
+    </nav>
 
-    <ul class="layui-nav layui-layout-right layui-bg-cyan" lay-filter="">
-        
-        
-        <li class="layui-nav-item" id="nav_big"><a href="/post/">Posts</a></li>
-        
 
-        
-            
-                <li class="layui-nav-item" id="nav_big"><a href="/">Home</a></li>
-            
-                <li class="layui-nav-item" id="nav_big"><a href="/about/">About</a></li>
-            
-        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">How I navigate directories?</h1>
+      <time class="post-date" datetime="2019-08-30 12:45:00 &#43;0530">30 Aug 2019</time>
+    </header>
 
-        
-        <li class="layui-nav-item" id="nav_small">
-            <a href="javascript:;">
-                <i class="layui-icon layui-icon-app" style="font-size: 24px;"></i>
-            </a>
-
-            <dl class="layui-nav-child">
-                
-                <dd><a href="/post/">Posts</a></dd>
-                
-
-                
-                    <dd><a href="/">Home</a></dd>
-                
-                    <dd><a href="/about/">About</a></dd>
-                
-            </dl>
-        </li>
-    </ul>
-</header>
-
-<script>
-layui.use('element', function(){
-  var element = layui.element;
-});
-</script>
-        <div id="content" style="min-height:80%">
-<div class="layui-container" style="margin-bottom: 10px">
-    
-
-    <div class="layui-row layui-col-space10">
-        <div class="layui-col-md8 layui-col-sm12 layui-col-xs12">
-            <div class="layui-card single-card">
-                <br />
-                <blockquote class="layui-elem-quote markdown-body single-title" >
-                    <h1>How I navigate directories?</h1>
-                    <h3 style="margin-top:10px; margin-bottom:10px"> 
-    <i class="layui-icon layui-icon-date" style="font-size: 24px; vertical-align: -2px;"></i>
-    <span>2019-08-30</span>
-
-    
-    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 0px;"></i>
-    
-        <a href="/tags/how-to">
-            <span class="layui-badge" style="vertical-align: 2px;">how-to</span>
-        </a>
-    
-        <a href="/tags/interactive">
-            <span class="layui-badge" style="vertical-align: 2px;">interactive</span>
-        </a>
-    
-        <a href="/tags/cli-hacks">
-            <span class="layui-badge" style="vertical-align: 2px;">cli-hacks</span>
-        </a>
-    
-</h3>
-                </blockquote>
-                <div class="layui-card-body markdown-body single-content">
-                    
-
-<p>I do not use any <code>autojump</code> tools to navigate across my project directories. A simple <code>bash</code> function does the job for me. Customization is the main reason.</p>
-
+    <p>I do not use any <code>autojump</code> tools to navigate across my project directories. A simple <code>bash</code> function does the job for me. Customization is the main reason.</p>
 <p>The tools I use to create the functions can be replaced with GNU tools. I use them because they are fast and have some additional features like respect <code>.gitignore</code> file. Let&rsquo;s create the function.</p>
-
 <h2 id="steps">Steps</h2>
-
 <h3 id="1-find-directories-or-files-to-navigate-to">1. Find directories or files to navigate to</h3>
-
 <p>I need a way to list all the directories I am interested in. This could be directories under your project dir (for me, it is <code>${HOME}/projects</code>).</p>
-
-<pre><code class="language-bash">$ fd . -d 5 ${HOME}/project/ -E vendor
-</code></pre>
-
-<p>This lists all directories in my project directory till 5 depth. By default <a href="https://github.com/sharkdp/fd">fd</a> ignores git-ignored files and directories. I am also excluding <code>vendor</code> directory for my golang projects as sometimes they are not git-ignored.</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ fd . -d <span style="color:#ae81ff">5</span> <span style="color:#e6db74">${</span>HOME<span style="color:#e6db74">}</span>/project/ -E vendor
+</code></pre></div><p>This lists all directories in my project directory till 5 depth. By default <a href="https://github.com/sharkdp/fd">fd</a> ignores git-ignored files and directories. I am also excluding <code>vendor</code> directory for my golang projects as sometimes they are not git-ignored.</p>
 <blockquote>
 <p>Note: Use any finder instead fd. GNU find will work too.</p>
 </blockquote>
-
 <h3 id="2-open-an-interactive-fuzzy-finder">2. Open an interactive fuzzy-finder</h3>
-
 <p>Now, we have a huge list of results. Pipe the results to <a href="https://github.com/junegunn/fzf">fzf</a></p>
-
-<pre><code class="language-bash">$ fd . -d 5 ${HOME}/project/ -E vendor | fzf
-</code></pre>
-
-<p><img src="/directory-navigation/image-1.png" alt="Interactive mode through FZF" /></p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ fd . -d <span style="color:#ae81ff">5</span> <span style="color:#e6db74">${</span>HOME<span style="color:#e6db74">}</span>/project/ -E vendor | fzf
+</code></pre></div><p><img src="/directory-navigation/image-1.png" alt="Interactive mode through FZF"></p>
 <p>The selection is returned as a result of the command. We could choose to handle however we want if its a directory.</p>
-
-<pre><code class="language-bash">function godir {
-    directory=$(fd -E vendor -d 5 . ${HOME}/project/ | fzf --color 16)
-    if [ ! -z  &quot;$directory&quot; ]; then
-        if [ ! -d &quot;$directory&quot; ]; then
-            # Its a file. cd to the directory.
-            cd $(dirname &quot;$directory&quot;)
-        else
-            # cd to the directory
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">function</span> godir <span style="color:#f92672">{</span>
+    directory<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>fd -E vendor -d <span style="color:#ae81ff">5</span> . <span style="color:#e6db74">${</span>HOME<span style="color:#e6db74">}</span>/project/ | fzf --color 16<span style="color:#66d9ef">)</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> ! -z  <span style="color:#e6db74">&#34;</span>$directory<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> ! -d <span style="color:#e6db74">&#34;</span>$directory<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+            <span style="color:#75715e"># Its a file. cd to the directory.</span>
+            cd <span style="color:#66d9ef">$(</span>dirname <span style="color:#e6db74">&#34;</span>$directory<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span>
+        <span style="color:#66d9ef">else</span>
+            <span style="color:#75715e"># cd to the directory</span>
             cd $directory
-        fi
-    fi
-}
+        <span style="color:#66d9ef">fi</span>
+    <span style="color:#66d9ef">fi</span>
+<span style="color:#f92672">}</span>
 
-$ godir # opens an interactive finder now
-</code></pre>
-
-<p>We have a basic interactive finder now. Let&rsquo;s add a little bit of preview feature before deciding to change directory.</p>
-
+$ godir <span style="color:#75715e"># opens an interactive finder now</span>
+</code></pre></div><p>We have a basic interactive finder now. Let&rsquo;s add a little bit of preview feature before deciding to change directory.</p>
 <blockquote>
 <p>Alternatives: <a href="https://github.com/jhawthorn/fzy">jhawthorn/fzy</a>, <a href="https://github.com/lotabout/skim">lotabout/skim</a></p>
 </blockquote>
-
 <h3 id="3-preview">3. Preview</h3>
-
 <p><code>fzf</code> allows us to run a preview command before actually making the selection. Lets do the following,</p>
-
 <ul>
 <li>If its a directory, list the files.</li>
 <li>If its a file, preview the file</li>
 </ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">function</span> previewSelection <span style="color:#f92672">{</span>
+    directory<span style="color:#f92672">=</span>$1
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> ! -z  <span style="color:#e6db74">&#34;</span>$directory<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> ! -d <span style="color:#e6db74">&#34;</span>$directory<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+            <span style="color:#75715e"># cat but with syntax highlighting</span>
+            bat --color<span style="color:#f92672">=</span>always <span style="color:#e6db74">&#34;</span>$directory<span style="color:#e6db74">&#34;</span>
+        <span style="color:#66d9ef">else</span>
+            <span style="color:#75715e"># ls with colors and git-aware</span>
+            exa --color<span style="color:#f92672">=</span>always -l --git --git-ignore -h $directory
+        <span style="color:#66d9ef">fi</span>
+    <span style="color:#66d9ef">fi</span>
+<span style="color:#f92672">}</span>
 
-<pre><code class="language-bash">function previewSelection {
-    directory=$1
-    if [ ! -z  &quot;$directory&quot; ]; then
-        if [ ! -d &quot;$directory&quot; ]; then
-            # cat but with syntax highlighting
-            bat --color=always &quot;$directory&quot;
-        else
-            # ls with colors and git-aware
-            exa --color=always -l --git --git-ignore -h $directory
-        fi
-    fi
-}
-
-# Export the function
+<span style="color:#75715e"># Export the function</span>
 export -f previewSelection
-</code></pre>
-
-<p>Now, in our previous function we change our fzf to preview our selection.</p>
-
-<pre><code class="language-bash">fd -E vendor -d 5 . ${HOME}/project/ | fzf --color 16 --preview &quot;previewSelection {}&quot;
-</code></pre>
-
-<p><strong>Preview a directory with exa:</strong></p>
-
-<p><img src="/directory-navigation/image-2.png" alt="preview-a-directory" /></p>
-
+</code></pre></div><p>Now, in our previous function we change our fzf to preview our selection.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">fd -E vendor -d <span style="color:#ae81ff">5</span> . <span style="color:#e6db74">${</span>HOME<span style="color:#e6db74">}</span>/project/ | fzf --color <span style="color:#ae81ff">16</span> --preview <span style="color:#e6db74">&#34;previewSelection {}&#34;</span>
+</code></pre></div><p><strong>Preview a directory with exa:</strong></p>
+<p><img src="/directory-navigation/image-2.png" alt="preview-a-directory"></p>
 <blockquote>
 <p>Alternatives: You could just use <code>ls</code>.</p>
 </blockquote>
-
 <p><strong>Preview a file with bat:</strong></p>
-
-<p><img src="/directory-navigation/image-3.png" alt="preview-a-file" /></p>
-
+<p><img src="/directory-navigation/image-3.png" alt="preview-a-file"></p>
 <blockquote>
 <p>Alternatives: <code>cat</code> or any other highlight tool you would want.</p>
 </blockquote>
-
 <h3 id="4-our-final-script">4. Our final script</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">function</span> previewSelection <span style="color:#f92672">{</span>
+    directory<span style="color:#f92672">=</span>$1
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> ! -z  <span style="color:#e6db74">&#34;</span>$directory<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> ! -d <span style="color:#e6db74">&#34;</span>$directory<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+            <span style="color:#75715e"># cat but with syntax highlighting</span>
+            bat --color<span style="color:#f92672">=</span>always <span style="color:#e6db74">&#34;</span>$directory<span style="color:#e6db74">&#34;</span>
+        <span style="color:#66d9ef">else</span>
+            <span style="color:#75715e"># ls with colors and git-aware</span>
+            exa --color<span style="color:#f92672">=</span>always -l --git --git-ignore -h $directory
+        <span style="color:#66d9ef">fi</span>
+    <span style="color:#66d9ef">fi</span>
+<span style="color:#f92672">}</span>
 
-<pre><code class="language-bash">function previewSelection {
-    directory=$1
-    if [ ! -z  &quot;$directory&quot; ]; then
-        if [ ! -d &quot;$directory&quot; ]; then
-            # cat but with syntax highlighting
-            bat --color=always &quot;$directory&quot;
-        else
-            # ls with colors and git-aware
-            exa --color=always -l --git --git-ignore -h $directory
-        fi
-    fi
-}
-
-# Export the function
+<span style="color:#75715e"># Export the function</span>
 export -f previewSelection
 
-function godir {
-    directory=$(fd -E vendor -d 5 . ${HOME}/project/ | fzf --color 16 --preview &quot;previewSelection {}&quot; )
-    if [ ! -z  &quot;$directory&quot; ]; then
-        if [ ! -d &quot;$directory&quot; ]; then
-            # Its a file. cd to the directory.
-            cd $(dirname &quot;$directory&quot;)
-        else
-            # cd to the directory
+<span style="color:#66d9ef">function</span> godir <span style="color:#f92672">{</span>
+    directory<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>fd -E vendor -d <span style="color:#ae81ff">5</span> . <span style="color:#e6db74">${</span>HOME<span style="color:#e6db74">}</span>/project/ | fzf --color <span style="color:#ae81ff">16</span> --preview <span style="color:#e6db74">&#34;previewSelection {}&#34;</span> <span style="color:#66d9ef">)</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> ! -z  <span style="color:#e6db74">&#34;</span>$directory<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> ! -d <span style="color:#e6db74">&#34;</span>$directory<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+            <span style="color:#75715e"># Its a file. cd to the directory.</span>
+            cd <span style="color:#66d9ef">$(</span>dirname <span style="color:#e6db74">&#34;</span>$directory<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span>
+        <span style="color:#66d9ef">else</span>
+            <span style="color:#75715e"># cd to the directory</span>
             cd $directory
-        fi
-    fi
-}
-</code></pre>
-
-<h3 id="tools-reference">Tools Reference</h3>
-
+        <span style="color:#66d9ef">fi</span>
+    <span style="color:#66d9ef">fi</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="tools-reference">Tools Reference</h3>
 <ul>
 <li><a href="https://github.com/sharkdp/fd">sharkdp/fd</a></li>
 <li><a href="https://github.com/sharkdp/bat">sharkdp/bat</a></li>
 <li><a href="https://github.com/ogham/exa">ogham/exa</a></li>
 <li><a href="https://github.com/junegunn/fzf">junegunn/fzf</a></li>
 </ul>
-</div>
-            </div>
-        </div>
+
+
+  </article>
+
+
+      <footer class="site-footer">
+        <span itemscope itemtype="http://schema.org/Person">
+          <link itemprop="url" href="https://aswinkarthik.dev/">
+          <span itemprop="name"></span>
+
+          <br>
+
+          <a itemprop="sameAs" href="https://github.com/aswinkarthik" title="GitHub">GH</a>
+
+          
+
+          
+        </span>
 
         
-        <div class="layui-col-md4 layui-col-sm12 layui-col-xs12">
-            <div class="layui-card single-card">
-                <h1 class="single-title">Relevant Topics</h1>
-                
-                	
-                    <div style="margin-left: 10px;">
-                        <blockquote class="layui-elem-quote" style="background-color:#FFFFFF;margin-top: 10px;">
-                            <a href="https://aswinkarthik.dev/post/setting-up/">
-                                <h2 class="">Setting up this Blog</h2>
-                            </a>
-                            <h3 style="margin-top:10px; margin-bottom:10px"> 
-    <i class="layui-icon layui-icon-date" style="font-size: 24px; vertical-align: -2px;"></i>
-    <span>2019-08-28</span>
-
-    
-    <i class="layui-icon layui-icon-tabs" style="font-size: 22px; vertical-align: 0px;"></i>
-    
-        <a href="/tags/blog">
-            <span class="layui-badge" style="vertical-align: 2px;">blog</span>
-        </a>
-    
-        <a href="/tags/how-to">
-            <span class="layui-badge" style="vertical-align: 2px;">how-to</span>
-        </a>
-    
-</h3>
-                        </blockquote>
-                    </div>
-                	
-                
-                <br />
-            </div>
-        </div>
-        
+      </footer>
     </div>
-</div>
 
+  <script src="/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 
-        </div><footer>
-    
-    
-    <div class="layui-container">
-        <p class="copyright">Copyright © 2019 aswinkarthik.dev</p>
-    </div>
-</footer>
-</body>
+  </body>
 </html>
+

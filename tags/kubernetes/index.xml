@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Kubernetes on Aswin&#39;s Site</title>
+    <title>kubernetes on Aswin&#39;s Site</title>
     <link>https://aswinkarthik.dev/tags/kubernetes/</link>
-    <description>Recent content in Kubernetes on Aswin&#39;s Site</description>
+    <description>Recent content in kubernetes on Aswin&#39;s Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 14 Jan 2020 20:43:16 +0530</lastBuildDate>
